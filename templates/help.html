@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - ParaDetect AI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #2563eb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .help-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.5rem 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-answer {
+            color: #475569;
+            line-height: 1.6;
+            margin-left: 1.5rem;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-item {
+            counter-increment: step-counter;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .step-number {
+            background: #2563eb;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-number::before {
+            content: counter(step-counter);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .image-requirements {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #0369a1;
+        }
+
+        .requirement-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-content {
+            color: #92400e;
+            line-height: 1.6;
+        }
+
+        .contact-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .contact-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .contact-text {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .help-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-microscope"></i>
+                ParaDetect AI
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Diagnosis</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/help" class="active">Help</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="page-header">
+            <h1 class="page-title">Help & Support</h1>
+        </section>
+
+        <div class="help-section">
+            <h2 class="section-title">
+                <i class="fas fa-play-circle"></i>
+                Getting Started
+            </h2>
+            <ol class="step-list">
+                <li class="step-item">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <div class="step-title">Prepare Your Image</div>
+                        <div class="step-description">
+                            Ensure you have a high-quality microscopic blood smear image. The image should be clear, well-focused, and show individual blood cells.
+                        </div>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <div class="step-title">Upload the Image</div>
+                        <div class="step-description">
+                            Click the upload area or drag and drop your image file. Supported formats include PNG, JPG, and JPEG files up to 10MB.
+                        </div>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <div class="step-title">Analyze</div>
+                        <div class="step-description">
+                            Click the "Analyze Image" button to start the AI analysis. Results will appear within seconds.
+                        </div>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <div class="step-title">Review Results</div>
+                        <div class="step-description">
+                            Review the diagnosis results, confidence scores, and probability distributions. Always consult with medical professionals for clinical decisions.
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <div class="help-section">
+            <h2 class="section-title">
+                <i class="fas fa-image"></i>
+                Image Requirements
+            </h2>
+            <div class="image-requirements">
+                <div class="requirement-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Microscopic blood smear images (thin or thick smears)</span>
+                </div>
+                <div class="requirement-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Clear, well-focused images with good contrast</span>
+                </div>
+                <div class="requirement-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Supported formats: PNG, JPG, JPEG</span>
+                </div>
+                <div class="requirement-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>File size: Maximum 10MB</span>
+                </div>
+                <div class="requirement-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Resolution: Minimum 128x128 pixels (higher recommended)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="help-section">
+            <h2 class="section-title">
+                <i class="fas fa-question-circle"></i>
+                Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i>
+                    How accurate is the AI diagnosis?
+                </div>
+                <div class="faq-answer">
+                    Our AI model achieves 95.8% accuracy on test data, with 94.2% sensitivity and 97.1% specificity. However, this tool is designed for screening support and should not replace professional medical diagnosis.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i>
+                    What types of malaria can be detected?
+                </div>
+                <div class="faq-answer">
+                    The current model performs binary classification (Parasitized vs Uninfected) and can detect the presence of malaria parasites in blood cells. It does not differentiate between specific Plasmodium species.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i>
+                    Is my data stored or shared?
+                </div>
+                <div class="faq-answer">
+                    No, we prioritize your privacy. Uploaded images are processed securely and are automatically deleted after analysis. No patient data is stored on our servers.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i>
+                    Can I use this for clinical diagnosis?
+                </div>
+                <div class="faq-answer">
+                    This tool is designed for research and screening support only. It should not be used as the sole basis for clinical diagnosis. Always confirm results with qualified healthcare professionals and standard laboratory protocols.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i>
+                    What should I do if I get an error?
+                </div>
+                <div class="faq-answer">
+                    Common issues include unsupported file formats, files too large, or network connectivity problems. Ensure your image meets the requirements and try again. If problems persist, contact support.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-chevron-right"></i>
+                    How long does analysis take?
+                </div>
+                <div class="faq-answer">
+                    Analysis typically takes less than 3 seconds per image. Processing time may vary based on image size and server load.
+                </div>
+            </div>
+        </div>
+
+        <div class="help-section">
+            <h2 class="section-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Important Considerations
+            </h2>
+            
+            <div class="alert">
+                <div class="alert-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Medical Disclaimer
+                </div>
+                <div class="alert-content">
+                    This AI tool is intended for research and screening support purposes only. It does not replace professional medical diagnosis, clinical judgment, or standard laboratory procedures. Always consult with qualified healthcare professionals and follow established clinical protocols for malaria diagnosis and treatment decisions.
+                </div>
+            </div>
+
+            <div class="alert">
+                <div class="alert-title">
+                    <i class="fas fa-info-circle"></i>
+                    Best Practices
+                </div>
+                <div class="alert-content">
+                    For optimal results, use high-quality microscopic images with proper staining (Giemsa stain recommended). Ensure images are well-focused and show clear cellular details. Consider multiple image analysis for comprehensive screening.
+                </div>
+            </div>
+        </div>
+
+        <div class="help-section">
+            <h2 class="section-title">
+                <i class="fas fa-headset"></i>
+                Contact Support
+            </h2>
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3 class="contact-title">Need Additional Help?</h3>
+                <p class="contact-text">
+                    If you have questions not covered in this help section or encounter technical issues, 
+                    please contact our support team. We're here to help healthcare professionals make the most of ParaDetect AI.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

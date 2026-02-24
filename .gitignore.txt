@@ -1,0 +1,12 @@
+# Ignore dataset folder
+data/
+
+# Ignore pycache
+__pycache__/
+
+# Ignore other big files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.db

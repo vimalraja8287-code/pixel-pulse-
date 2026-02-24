@@ -1,0 +1,132 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Research lab gradient -->
+    <radialGradient id="research-gradient" cx="40%" cy="30%" r="80%">
+      <stop offset="0%" style="stop-color:#0c4a6e;stop-opacity:0.95" />
+      <stop offset="30%" style="stop-color:#0369a1;stop-opacity:0.85" />
+      <stop offset="60%" style="stop-color:#0284c7;stop-opacity:0.75" />
+      <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:0.65" />
+    </radialGradient>
+    
+    <!-- Microscopic cell -->
+    <g id="cell">
+      <circle cx="0" cy="0" r="15" fill="currentColor" opacity="0.3"/>
+      <circle cx="0" cy="0" r="10" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+      <circle cx="0" cy="0" r="5" fill="currentColor" opacity="0.7"/>
+      <circle cx="-3" cy="-3" r="2" fill="currentColor" opacity="0.9"/>
+      <circle cx="4" cy="2" r="1.5" fill="currentColor" opacity="0.8"/>
+    </g>
+    
+    <!-- Parasite -->
+    <g id="parasite">
+      <ellipse cx="0" cy="0" rx="8" ry="12" fill="currentColor" opacity="0.4"/>
+      <ellipse cx="0" cy="0" rx="4" ry="6" fill="currentColor" opacity="0.6"/>
+      <circle cx="0" cy="-3" r="2" fill="currentColor" opacity="0.8"/>
+      <circle cx="0" cy="3" r="1.5" fill="currentColor" opacity="0.7"/>
+    </g>
+    
+    <!-- Laboratory equipment -->
+    <g id="lab-equipment">
+      <!-- Petri dish -->
+      <circle cx="0" cy="0" r="20" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+      <circle cx="0" cy="0" r="18" fill="currentColor" opacity="0.1"/>
+      <!-- Sample dots -->
+      <circle cx="-8" cy="-5" r="2" fill="currentColor" opacity="0.4"/>
+      <circle cx="6" cy="-8" r="1.5" fill="currentColor" opacity="0.5"/>
+      <circle cx="-3" cy="7" r="2.5" fill="currentColor" opacity="0.3"/>
+      <circle cx="10" cy="4" r="1" fill="currentColor" opacity="0.6"/>
+    </g>
+    
+    <!-- Research pattern -->
+    <pattern id="research-pattern" x="0" y="0" width="500" height="500" patternUnits="userSpaceOnUse">
+      <g fill="#ffffff" color="#ffffff" opacity="0.08">
+        <!-- Cells -->
+        <use href="#cell" transform="translate(100,100)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="100,100; 120,80; 100,100" dur="15s" repeatCount="indefinite"/>
+        </use>
+        <use href="#cell" transform="translate(350,200)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="350,200; 330,220; 350,200" dur="18s" repeatCount="indefinite"/>
+        </use>
+        <use href="#cell" transform="translate(200,400)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="200,400; 220,380; 200,400" dur="12s" repeatCount="indefinite"/>
+        </use>
+        
+        <!-- Parasites -->
+        <use href="#parasite" transform="translate(250,150)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="250,150; 270,130; 250,150" dur="20s" repeatCount="indefinite"/>
+        </use>
+        <use href="#parasite" transform="translate(80,300)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="80,300; 60,320; 80,300" dur="16s" repeatCount="indefinite"/>
+        </use>
+        
+        <!-- Lab equipment -->
+        <use href="#lab-equipment" transform="translate(400,350)">
+          <animateTransform attributeName="transform" type="rotate" 
+            values="0; 5; 0" dur="25s" repeatCount="indefinite"/>
+        </use>
+        <use href="#lab-equipment" transform="translate(150,250)">
+          <animateTransform attributeName="transform" type="rotate" 
+            values="0; -3; 0" dur="30s" repeatCount="indefinite"/>
+        </use>
+      </g>
+    </pattern>
+    
+    <!-- Grid lines for research feel -->
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.05"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#research-gradient)"/>
+  
+  <!-- Grid overlay -->
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+  
+  <!-- Research pattern overlay -->
+  <rect width="1920" height="1080" fill="url(#research-pattern)"/>
+  
+  <!-- Large floating research elements -->
+  <g opacity="0.12" fill="#ffffff">
+    <!-- Large microscopic view -->
+    <g transform="translate(1500,250)">
+      <circle r="80" fill="none" stroke="currentColor" stroke-width="3" opacity="0.3"/>
+      <use href="#cell" transform="scale(2)">
+        <animateTransform attributeName="transform" type="scale" 
+          values="2; 2.2; 2" dur="8s" repeatCount="indefinite"/>
+      </use>
+      <use href="#parasite" transform="translate(30,20) scale(1.5)">
+        <animateTransform attributeName="transform" type="translate" 
+          values="30,20; 35,15; 30,20" dur="10s" repeatCount="indefinite"/>
+      </use>
+    </g>
+    
+    <!-- Research data visualization -->
+    <g transform="translate(300,800)">
+      <rect x="0" y="0" width="200" height="100" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+      <path d="M20,80 L60,60 L100,40 L140,30 L180,20" stroke="currentColor" stroke-width="3" fill="none" opacity="0.5">
+        <animate attributeName="stroke-dasharray" values="0,200; 200,0; 0,200" dur="6s" repeatCount="indefinite"/>
+      </path>
+      <circle cx="20" cy="80" r="3" fill="currentColor" opacity="0.7"/>
+      <circle cx="60" cy="60" r="3" fill="currentColor" opacity="0.7"/>
+      <circle cx="100" cy="40" r="3" fill="currentColor" opacity="0.7"/>
+      <circle cx="140" cy="30" r="3" fill="currentColor" opacity="0.7"/>
+      <circle cx="180" cy="20" r="3" fill="currentColor" opacity="0.7"/>
+    </g>
+  </g>
+  
+  <!-- Subtle light beams for depth -->
+  <g opacity="0.06">
+    <path d="M0,300 L1920,100 L1920,150 L0,350 Z" fill="#ffffff">
+      <animate attributeName="opacity" values="0.06;0.1;0.06" dur="12s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0,600 L1920,800 L1920,850 L0,650 Z" fill="#ffffff">
+      <animate attributeName="opacity" values="0.1;0.06;0.1" dur="15s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

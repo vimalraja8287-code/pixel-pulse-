@@ -1,0 +1,145 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Medical gradient background -->
+    <radialGradient id="hero-gradient" cx="30%" cy="40%" r="70%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:0.9" />
+      <stop offset="30%" style="stop-color:#1e40af;stop-opacity:0.8" />
+      <stop offset="60%" style="stop-color:#3b82f6;stop-opacity:0.7" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:0.6" />
+    </radialGradient>
+    
+    <!-- Animated DNA helix -->
+    <g id="dna-helix">
+      <path d="M0,0 Q15,15 30,0 Q45,-15 60,0 Q75,15 90,0" stroke="currentColor" stroke-width="2" fill="none" opacity="0.6"/>
+      <path d="M0,30 Q15,15 30,30 Q45,45 60,30 Q75,15 90,30" stroke="currentColor" stroke-width="2" fill="none" opacity="0.6"/>
+      <line x1="0" y1="0" x2="0" y2="30" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+      <line x1="30" y1="0" x2="30" y2="30" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+      <line x1="60" y1="0" x2="60" y2="30" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+      <line x1="90" y1="0" x2="90" y2="30" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+    </g>
+    
+    <!-- Medical microscope -->
+    <g id="microscope">
+      <circle cx="0" cy="0" r="8" fill="currentColor" opacity="0.7"/>
+      <rect x="-4" y="8" width="8" height="20" fill="currentColor" opacity="0.7"/>
+      <rect x="-8" y="28" width="16" height="4" fill="currentColor" opacity="0.7"/>
+      <rect x="-12" y="32" width="24" height="6" fill="currentColor" opacity="0.7"/>
+      <!-- Lens -->
+      <circle cx="0" cy="0" r="4" fill="none" stroke="currentColor" stroke-width="1" opacity="0.9"/>
+    </g>
+    
+    <!-- Blood cells -->
+    <g id="blood-cell">
+      <circle cx="0" cy="0" r="12" fill="currentColor" opacity="0.5"/>
+      <circle cx="0" cy="0" r="6" fill="none" stroke="currentColor" stroke-width="2" opacity="0.7"/>
+      <circle cx="0" cy="0" r="2" fill="currentColor" opacity="0.9"/>
+    </g>
+    
+    <!-- Virus/pathogen -->
+    <g id="virus">
+      <circle cx="0" cy="0" r="8" fill="currentColor" opacity="0.4"/>
+      <circle cx="-6" cy="-6" r="2" fill="currentColor" opacity="0.6"/>
+      <circle cx="6" cy="-6" r="2" fill="currentColor" opacity="0.6"/>
+      <circle cx="-6" cy="6" r="2" fill="currentColor" opacity="0.6"/>
+      <circle cx="6" cy="6" r="2" fill="currentColor" opacity="0.6"/>
+      <circle cx="0" cy="-8" r="1.5" fill="currentColor" opacity="0.8"/>
+      <circle cx="8" cy="0" r="1.5" fill="currentColor" opacity="0.8"/>
+      <circle cx="0" cy="8" r="1.5" fill="currentColor" opacity="0.8"/>
+      <circle cx="-8" cy="0" r="1.5" fill="currentColor" opacity="0.8"/>
+    </g>
+    
+    <!-- Medical cross -->
+    <g id="medical-cross">
+      <rect x="-3" y="-12" width="6" height="24" fill="currentColor" opacity="0.8"/>
+      <rect x="-12" y="-3" width="24" height="6" fill="currentColor" opacity="0.8"/>
+    </g>
+    
+    <!-- Floating particles -->
+    <pattern id="medical-particles" x="0" y="0" width="400" height="400" patternUnits="userSpaceOnUse">
+      <g fill="#ffffff" color="#ffffff">
+        <!-- DNA helixes -->
+        <use href="#dna-helix" transform="translate(50,80)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="50,80; 70,60; 50,80" dur="12s" repeatCount="indefinite"/>
+        </use>
+        <use href="#dna-helix" transform="translate(300,200)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="300,200; 280,220; 300,200" dur="15s" repeatCount="indefinite"/>
+        </use>
+        
+        <!-- Microscopes -->
+        <use href="#microscope" transform="translate(150,150)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="150,150; 170,130; 150,150" dur="10s" repeatCount="indefinite"/>
+        </use>
+        <use href="#microscope" transform="translate(350,50)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="350,50; 330,70; 350,50" dur="14s" repeatCount="indefinite"/>
+        </use>
+        
+        <!-- Blood cells -->
+        <use href="#blood-cell" transform="translate(100,300)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="100,300; 120,280; 100,300" dur="8s" repeatCount="indefinite"/>
+        </use>
+        <use href="#blood-cell" transform="translate(250,100)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="250,100; 230,120; 250,100" dur="11s" repeatCount="indefinite"/>
+        </use>
+        
+        <!-- Viruses -->
+        <use href="#virus" transform="translate(200,350)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="200,350; 220,330; 200,350" dur="9s" repeatCount="indefinite"/>
+        </use>
+        <use href="#virus" transform="translate(80,180)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="80,180; 60,200; 80,180" dur="13s" repeatCount="indefinite"/>
+        </use>
+        
+        <!-- Medical crosses -->
+        <use href="#medical-cross" transform="translate(320,300)">
+          <animateTransform attributeName="transform" type="translate" 
+            values="320,300; 340,280; 320,300" dur="16s" repeatCount="indefinite"/>
+        </use>
+      </g>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#hero-gradient)"/>
+  
+  <!-- Animated medical particles -->
+  <rect width="1920" height="1080" fill="url(#medical-particles)" opacity="0.15"/>
+  
+  <!-- Large floating elements -->
+  <g opacity="0.1" fill="#ffffff">
+    <!-- Large DNA strand -->
+    <use href="#dna-helix" transform="translate(1600,300) scale(2)">
+      <animateTransform attributeName="transform" type="translate" 
+        values="1600,300; 1620,280; 1600,300" dur="20s" repeatCount="indefinite"/>
+    </use>
+    
+    <!-- Large microscope -->
+    <use href="#microscope" transform="translate(200,700) scale(1.5)">
+      <animateTransform attributeName="transform" type="translate" 
+        values="200,700; 180,720; 200,700" dur="18s" repeatCount="indefinite"/>
+    </use>
+    
+    <!-- Large blood cell -->
+    <use href="#blood-cell" transform="translate(1400,800) scale(1.8)">
+      <animateTransform attributeName="transform" type="translate" 
+        values="1400,800; 1420,780; 1400,800" dur="22s" repeatCount="indefinite"/>
+    </use>
+  </g>
+  
+  <!-- Subtle light rays -->
+  <g opacity="0.08">
+    <path d="M0,0 L1920,400 L1920,450 L0,50 Z" fill="#ffffff">
+      <animate attributeName="opacity" values="0.08;0.12;0.08" dur="8s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0,300 L1920,700 L1920,750 L0,350 Z" fill="#ffffff">
+      <animate attributeName="opacity" values="0.12;0.08;0.12" dur="10s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

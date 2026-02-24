@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ParaDetect AI - Malaria Detection System</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        url('/static/images/medical-bg.svg') no-repeat center center fixed,
+        linear-gradient(135deg, #0f4c75 0%, #3282b8 50%, #bbe1fa 100%);
+      background-size: cover, cover;
+      min-height: 100vh;
+      color: #333;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg,
+          rgba(15, 76, 117, 0.85) 0%,
+          rgba(50, 130, 184, 0.75) 50%,
+          rgba(187, 225, 250, 0.65) 100%);
+      z-index: -1;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f4c75;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #64748b;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #0f4c75;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .upload-section {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #0f4c75, #3282b8, #bbe1fa);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .upload-area {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-area::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(15, 76, 117, 0.1),
+          transparent);
+      transition: left 0.5s ease;
+    }
+
+    .upload-area:hover::before {
+      left: 100%;
+    }
+
+    .upload-area:hover {
+      border-color: #0f4c75;
+      background: rgba(15, 76, 117, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(15, 76, 117, 0.2);
+    }
+
+    .upload-area.dragover {
+      border-color: #0f4c75;
+      background: rgba(15, 76, 117, 0.1);
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(15, 76, 117, 0.3);
+    }
+
+    .upload-icon {
+      font-size: 3rem;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+
+    .upload-text {
+      color: #64748b;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .upload-subtext {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .analyze-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #0f4c75, #3282b8);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .analyze-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(15, 76, 117, 0.3);
+    }
+
+    .analyze-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .results-section {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .results-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #0f4c75, #3282b8, #bbe1fa);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .image-preview {
+      width: 100%;
+      max-width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      border: 2px solid #e2e8f0;
+    }
+
+    .result-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #0f4c75;
+    }
+
+    .diagnosis-result {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .positive {
+      color: #dc2626;
+    }
+
+    .negative {
+      color: #16a34a;
+    }
+
+    .confidence-bar {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .confidence-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #16a34a, #22c55e);
+      transition: width 0.5s ease;
+    }
+
+    .confidence-fill.high-risk {
+      background: linear-gradient(90deg, #dc2626, #ef4444);
+    }
+
+    .probability-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .prob-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+    }
+
+    .prob-label {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+
+    .prob-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .error-message {
+      background: #fef2f2;
+      color: #dc2626;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #fecaca;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-icon {
+      font-size: 2.5rem;
+      color: #0f4c75;
+      margin-bottom: 1rem;
+    }
+
+    .info-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+
+    .info-text {
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .disclaimer {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .disclaimer-title {
+      font-weight: 600;
+      color: #f59e0b;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    .demo-badge {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-microscope"></i>
+        ParaDetect AI
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/" class="active">Diagnosis</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="hero-section">
+      <h1 class="hero-title">Advanced Malaria Detection</h1>
+      <p class="hero-subtitle">
+        AI-powered microscopic blood smear analysis for rapid and accurate malaria parasite detection.
+        Supporting healthcare professionals with cutting-edge deep learning technology.
+      </p>
+    </section>
+
+    <div class="main-content">
+      <div class="upload-section">
+        <h2 class="section-title">
+          <i class="fas fa-upload"></i>
+          Upload Blood Smear Image
+        </h2>
+
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">
+            <i class="fas fa-cloud-upload-alt"></i>
+          </div>
+          <div class="upload-text">Click to upload or drag and drop</div>
+          <div class="upload-subtext">PNG, JPG, JPEG up to 10MB</div>
+        </div>
+
+        <input type="file" id="imageInput" class="file-input" accept="image/*">
+
+        <button class="analyze-btn" id="analyzeBtn">
+          <i class="fas fa-search"></i>
+          Analyze Image
+        </button>
+
+        <div id="errorMessage" class="error-message" style="display: none;">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span id="errorText"></span>
+        </div>
+      </div>
+
+      <div class="results-section">
+        <h2 class="section-title">
+          <i class="fas fa-chart-line"></i>
+          Analysis Results
+        </h2>
+
+        <div id="noResults" style="text-align: center; color: #94a3b8; padding: 2rem;">
+          <i class="fas fa-microscope" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+          <p>Upload an image to see analysis results</p>
+        </div>
+
+        <div id="resultsContent" style="display: none;">
+          <img id="imagePreview" class="image-preview" style="display: none;">
+
+          <div class="result-card">
+            <div id="diagnosisResult" class="diagnosis-result"></div>
+            <div style="color: #64748b; margin-bottom: 1rem;">
+              Confidence Level: <span id="confidenceText"></span>
+            </div>
+            <div class="confidence-bar">
+              <div id="confidenceFill" class="confidence-fill"></div>
+            </div>
+            <div style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">
+              Processing Time: <span id="processingTime">--</span>
+            </div>
+          </div>
+
+          <div class="probability-grid">
+            <div class="prob-item">
+              <div class="prob-label">Uninfected</div>
+              <div id="uninfectedProb" class="prob-value" style="color: #16a34a;"></div>
+            </div>
+            <div class="prob-item">
+              <div class="prob-label">Parasitized</div>
+              <div id="parasitizedProb" class="prob-value" style="color: #dc2626;"></div>
+            </div>
+          </div>
+
+          <div id="demoIndicator" style="display: none;">
+            <div class="demo-badge">
+              <i class="fas fa-info-circle"></i>
+              Demo Mode: Simulated result for testing
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h3 class="info-title">AI-Powered Analysis</h3>
+        <p class="info-text">Advanced CNN model trained on thousands of blood smear images for accurate parasite
+          detection</p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h3 class="info-title">Rapid Results</h3>
+        <p class="info-text">Get diagnosis results in seconds, significantly faster than traditional microscopic
+          examination</p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3 class="info-title">Secure & Private</h3>
+        <p class="info-text">All image processing happens securely on our servers with no data retention</p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <h3 class="disclaimer-title">
+        <i class="fas fa-exclamation-triangle"></i>
+        Medical Disclaimer
+      </h3>
+      <p>
+        This tool is designed for research and screening support only. It does not replace professional medical
+        diagnosis.
+        Always confirm results with qualified healthcare professionals and follow standard clinical protocols.
+        The AI model provides probability estimates that should be interpreted by trained medical personnel.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // DOM elements
+    const uploadArea = document.getElementById('uploadArea');
+    const imageInput = document.getElementById('imageInput');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+    const noResults = document.getElementById('noResults');
+    const resultsContent = document.getElementById('resultsContent');
+    const imagePreview = document.getElementById('imagePreview');
+    const diagnosisResult = document.getElementById('diagnosisResult');
+    const confidenceText = document.getElementById('confidenceText');
+    const confidenceFill = document.getElementById('confidenceFill');
+    const uninfectedProb = document.getElementById('uninfectedProb');
+    const parasitizedProb = document.getElementById('parasitizedProb');
+    const processingTime = document.getElementById('processingTime');
+    const demoIndicator = document.getElementById('demoIndicator');
+
+    let selectedFile = null;
+
+    // File validation
+    function validateFile(file) {
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+      const maxSize = 10 * 1024 * 1024; // 10MB
+
+      if (!validTypes.includes(file.type)) {
+        return { valid: false, error: 'Please select a valid image file (PNG, JPG, JPEG)' };
+      }
+
+      if (file.size > maxSize) {
+        return { valid: false, error: 'File size must be less than 10MB' };
+      }
+
+      return { valid: true };
+    }
+
+    // Upload area interactions
+    uploadArea.addEventListener('click', () => imageInput.click());
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFileSelect(files[0]);
+      }
+    });
+
+    imageInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+      }
+    });
+
+    function handleFileSelect(file) {
+      const validation = validateFile(file);
+
+      if (!validation.valid) {
+        showError(validation.error);
+        return;
+      }
+
+      selectedFile = file;
+      hideError();
+
+      // Show preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+
+      // Update upload area
+      const fileSize = (file.size / 1024 / 1024).toFixed(2);
+      uploadArea.innerHTML = `
+                <div class="upload-icon">
+                    <i class="fas fa-check-circle" style="color: #16a34a;"></i>
+                </div>
+                <div class="upload-text" style="color: #16a34a;">Image selected: ${file.name}</div>
+                <div class="upload-subtext">Size: ${fileSize} MB • Click to change image</div>
+            `;
+    }
+
+    // Analyze button click
+    analyzeBtn.addEventListener('click', async () => {
+      if (!selectedFile) {
+        showError('Please select an image first');
+        return;
+      }
+
+      hideError();
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+
+      try {
+        const response = await fetch('/api/predict', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Analysis failed');
+        }
+
+        const data = await response.json();
+        displayResults(data);
+
+      } catch (error) {
+        console.error('Analysis error:', error);
+        showError(error.message || 'Network error occurred. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    function displayResults(data) {
+      const label = data.label;
+      const confidence = (data.confidence * 100).toFixed(1);
+      const isPositive = label === 'Parasitized';
+
+      // Update diagnosis
+      diagnosisResult.innerHTML = `
+                <i class="fas fa-${isPositive ? 'exclamation-triangle' : 'check-circle'}"></i>
+                ${label}
+            `;
+      diagnosisResult.className = `diagnosis-result ${isPositive ? 'positive' : 'negative'}`;
+
+      // Update confidence
+      confidenceText.textContent = `${confidence}%`;
+      confidenceFill.style.width = `${confidence}%`;
+      confidenceFill.className = `confidence-fill ${isPositive ? 'high-risk' : ''}`;
+
+      // Update probabilities
+      uninfectedProb.textContent = `${(data.probabilities['Uninfected'] * 100).toFixed(1)}%`;
+      parasitizedProb.textContent = `${(data.probabilities['Parasitized'] * 100).toFixed(1)}%`;
+
+      // Update processing time
+      processingTime.textContent = data.processing_time ? `${data.processing_time}s` : 'N/A';
+
+      // Show demo indicator if in demo mode
+      if (data.demo_mode) {
+        demoIndicator.style.display = 'block';
+      } else {
+        demoIndicator.style.display = 'none';
+      }
+
+      // Show results
+      noResults.style.display = 'none';
+      resultsContent.style.display = 'block';
+    }
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorMessage.style.display = 'flex';
+    }
+
+    function hideError() {
+      errorMessage.style.display = 'none';
+    }
+
+    function setLoading(loading) {
+      analyzeBtn.disabled = loading;
+      if (loading) {
+        analyzeBtn.innerHTML = `
+                    <div class="loading-spinner"></div>
+                    Analyzing...
+                `;
+      } else {
+        analyzeBtn.innerHTML = `
+                    <i class="fas fa-search"></i>
+                    Analyze Image
+                `;
+      }
+    }
+  </script>
+</body>
+
+</html>
